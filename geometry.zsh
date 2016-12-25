@@ -97,8 +97,10 @@ prompt_geometry_setup() {
     export GEOMETRY_PROMPT=$(prompt_geometry_colorize $GEOMETRY_COLOR_ROOT $GEOMETRY_SYMBOL_ROOT)
   fi
 
-  add-zsh-hook preexec prompt_geometry_set_cmd_title
-  add-zsh-hook precmd prompt_geometry_set_title
+  if ! [ -z $DISABLE_AUTO_TITLE ] ; then
+      add-zsh-hook preexec prompt_geometry_set_cmd_title
+      add-zsh-hook precmd prompt_geometry_set_title
+  fi
   add-zsh-hook precmd prompt_geometry_render
 
   if $PROMPT_GEOMETRY_SHOW_RPROMPT && $PROMPT_GEOMETRY_RPROMPT_ASYNC; then
